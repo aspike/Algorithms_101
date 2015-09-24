@@ -1,12 +1,15 @@
+package Week1;
+
 import java.util.Random;
 
 /**
  * Class that models percolation process and counts threshold
  */
 public class PercolationStats {
-    private final double CONFIDENCE_COEF = 1.96;  // confidence coefficient value
+    private static final double CONFIDENCE_COEF = 1.96; // confidence coefficient
+    private static final double EPS = 0.00001;
     private double[] openSites; // array that holds fraction of open_sites to N
-    private Double mean = null;
+    private double mean = -1d;
 
     /**
      * c-tor and method that performs calculations
@@ -60,7 +63,7 @@ public class PercolationStats {
      */
     public double stddev() {
         double cachedMean;
-        if (this.mean != null) {
+        if (this.mean + 1d < EPS) {
             cachedMean = this.mean;
         } else {
             cachedMean = mean();
@@ -77,7 +80,7 @@ public class PercolationStats {
      */
     public double confidenceLo() {
         double cachedMean;
-        if (this.mean != null) {
+        if (this.mean != -1d) {
             cachedMean = this.mean;
         } else {
             cachedMean = mean();
@@ -90,7 +93,7 @@ public class PercolationStats {
      */
     public double confidenceHi() {
         double cachedMean;
-        if (this.mean != null) {
+        if (this.mean != -1d) {
             cachedMean = this.mean;
         } else {
             cachedMean = mean();

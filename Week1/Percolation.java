@@ -1,5 +1,9 @@
+package Week1;
+
+import edu.princeton.cs.algs4.WeightedQuickUnionUF;
+
 /**
- * Percolation data structure
+ * Week1.Percolation data structure
  */
 public class Percolation {
     private static final int CLOSED = 0;    // variable that represents CLOSED cell
@@ -105,7 +109,6 @@ public class Percolation {
         if (status[id] == FULL) {
             return true;
         } else if (grid.connected(id, firstRowComponent)) {
-
             status[id] = FULL;
             return true;
         }
