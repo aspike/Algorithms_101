@@ -81,6 +81,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return new Iterator<Item>() {
             private Item[] iterItems = (Item[]) new Object[size()];
             private int current = -1;
+
             {
                 for (int i = 0; i < tail; i++) {
                     iterItems[i] = items[i];
@@ -88,14 +89,18 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
                 }
             }
 
-            public boolean hasNext() { return current + 1 != iterItems.length; }
+            public boolean hasNext() {
+                return current + 1 != iterItems.length;
+            }
 
             public Item next() {
                 if (!hasNext()) throw new NoSuchElementException();
                 return iterItems[++current];
             }
 
-            public void remove() { throw new UnsupportedOperationException(); }
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
         };
     }
 
