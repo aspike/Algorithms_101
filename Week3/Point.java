@@ -1,3 +1,5 @@
+package Week3;
+
 import edu.princeton.cs.algs4.StdDraw;
 
 import java.util.Comparator;
@@ -25,13 +27,14 @@ public class Point implements Comparable<Point> {
      * Draws this point
      */
     public void draw() {
-        StdDraw.point(x, y);
+        StdDraw.circle(x, y, 100);
+//        StdDraw.point(x, y);
     }
 
     /**
      * Draws the line segment from this point to that point
      *
-     * @param that - Point that should be connected with this
+     * @param that - Week3.Point that should be connected with this
      */
     public void drawTo(Point that) {
         StdDraw.line(this.x, this.y, that.x, that.y);
@@ -55,8 +58,8 @@ public class Point implements Comparable<Point> {
         if (this.y < that.y) return Integer.MIN_VALUE;
         else if (this.y > that.y) return Integer.MAX_VALUE;
         else {
-            if (this.x > that.x) return 1;
-            else if (this.x < that.x) return -1;
+            if (this.x > that.x) return Integer.MAX_VALUE;
+            else if (this.x < that.x) return Integer.MIN_VALUE;
             else return 0;
         }
     }
@@ -79,29 +82,18 @@ public class Point implements Comparable<Point> {
      */
     public Comparator<Point> slopeOrder() {
         return (p, q) -> {
-            if (p == null && q == null) return 0;
-            else if (q == null) return -1;
-            else if (p == null) return 1;
+            if (p == null || q == null) throw new NullPointerException();
             double pSlope = p.slopeTo(this);
             double qSlope = q.slopeTo(this);
 
             if (pSlope > qSlope) return 1;
             else if (pSlope < qSlope) return -1;
             else return 0;
-//            else {
-//                // do this in order to get point with same slope be reverse-sorted with respect to distance from this point
-//                double pDistance = distance(p, this);
-//                double qDistance = distance(q, this);
-//
-//                if (pDistance > qDistance) return 1;
-//                else if (pDistance < qDistance) return -1;
-//                else return 0;
-//            }
         };
     }
 
-    private double distance(Point p, Point q) {
-        return Math.sqrt((p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y));
+    @Override
+    public boolean equals(Object obj) {
+        return compareTo((Point) obj) == 0;
     }
-
 }

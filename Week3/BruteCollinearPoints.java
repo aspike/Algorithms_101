@@ -1,3 +1,5 @@
+package Week3;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class BruteCollinearPoints {
      * Finds all line segments containing 4 points
      */
     public BruteCollinearPoints(Point[] points) {
-        if (points == null) throw new NullPointerException("Point array expected");
+        if (points == null) throw new NullPointerException("Week3.Point array expected");
         for (int i = 0; i < points.length; i++) {
             if (points[i] == null) throw new NullPointerException("Points aren't expected to be null ");
             for (int j = 0; j < points.length; j++) {
@@ -54,7 +56,9 @@ public class BruteCollinearPoints {
      */
     public LineSegment[] segments() {
         LineSegment[] tempSegm = new LineSegment[segments.size()];
-        for (int i = 0; i < tempSegm.length; i++) tempSegm[i] = segments.get(i);
+        for (int i = 0; i < tempSegm.length; i++) {
+            tempSegm[i] = segments.get(i);
+        }
         return tempSegm;
     }
 
