@@ -1,30 +1,30 @@
 package Week3;
 
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * User: berdarm
  * Date: 27.09.15
  */
 public class FastCollinearPoints {
-    private List<LineSegment> segments = new LinkedList<>();
+    //    private List<Week3.LineSegment> segments = new LinkedList<>();
+    private LineSegment[] segments;
+    private int index = 0;
 
     /**
      * Finds all line segments containing 4 points
      */
     public FastCollinearPoints(Point[] points) {
         if (points == null) throw new NullPointerException("Week3.Point array expected");
-        for (int i = 0; i < points.length; i++) {
-            if (points[i] == null) throw new NullPointerException("Points aren't expected to be null ");
-            for (int j = 0; j < points.length; j++) {
-                if (i == j) continue;
-                if (points[i].compareTo(points[j]) == 0) throw new IllegalArgumentException();
-            }
-        }
 
         Point[] sortedPoints = Arrays.copyOf(points, points.length);
+        Arrays.sort(sortedPoints);
+        for (int i = 1; i < sortedPoints.length; i++) {
+            if (sortedPoints[i] == null) throw new NullPointerException("Points aren't expected to be null ");
+            if (sortedPoints[i].compareTo(sortedPoints[i - 1]) == 0) throw new IllegalArgumentException();
+        }
+        segments = new LineSegment[points.length * points.length];
+
 
         for (Point point : points) {
             Arrays.sort(sortedPoints, point.slopeOrder());
@@ -43,7 +43,7 @@ public class FastCollinearPoints {
                             streakBegin = -1;
                             continue;
                         }
-                        segments.add(new LineSegment(point, sortedPoints[streakBegin]));
+                        segments[index++] = new LineSegment(point, sortedPoints[streakBegin]);
                     }
                     streakBegin = -1;
                 }
@@ -56,17 +56,13 @@ public class FastCollinearPoints {
      * @return the number of line segments
      */
     public int numberOfSegments() {
-        return segments.size();
+        return index;
     }
 
     /**
      * @return the line segments
      */
     public LineSegment[] segments() {
-        LineSegment[] tempSegm = new LineSegment[segments.size()];
-        for (int i = 0; i < tempSegm.length; i++) {
-            tempSegm[i] = segments.get(i);
-        }
-        return tempSegm;
+        return Arrays.copyOfRange(segments, 0, index);
     }
 }

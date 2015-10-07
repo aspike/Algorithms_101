@@ -27,8 +27,7 @@ public class Point implements Comparable<Point> {
      * Draws this point
      */
     public void draw() {
-        StdDraw.circle(x, y, 100);
-//        StdDraw.point(x, y);
+        StdDraw.point(x, y);
     }
 
     /**
@@ -92,8 +91,4 @@ public class Point implements Comparable<Point> {
         };
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        return compareTo((Point) obj) == 0;
-    }
 }
